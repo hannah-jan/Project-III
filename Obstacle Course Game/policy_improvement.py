@@ -1,7 +1,6 @@
 from policy_eval import step, policy_eval, print_grid, r_policy
 import numpy as np
 
-
 # Return the values of the actions North, South, East and West
 def lookahead(i,j, state_val):
     (north_i, north_j) = step([i,j], np.array([-1,0]))
@@ -15,11 +14,13 @@ def lookahead(i,j, state_val):
 
 # Find the greedy policy from a given state
 def greedy(state_val):
+    
     greedy_policy = [[[0,0,0,0,0,0,0], [0,0,0,0,0,0,0], [0,0,0,0,0,0,0], [0,0,0,0,0,0,0], [0,0,0,0,0,0,0]],
                      [[0,0,0,0,0,0,0], [0,0,0,0,0,0,0], [0,0,0,0,0,0,0], [0,0,0,0,0,0,0], [0,0,0,0,0,0,0]],
                      [[0,0,0,0,0,0,0], [0,0,0,0,0,0,0], [0,0,0,0,0,0,0], [0,0,0,0,0,0,0], [0,0,0,0,0,0,0]],
                      [[0,0,0,0,0,0,0], [0,0,0,0,0,0,0], [0,0,0,0,0,0,0], [0,0,0,0,0,0,0], [0,0,0,0,0,0,0]],
                      [[0,0,0,0,0,0,0], [0,0,0,0,0,0,0], [0,0,0,0,0,0,0], [0,0,0,0,0,0,0], [0,0,0,0,0,0,0]]]
+ 
     for i in range(5):
         for j in range(5):
             greedy_action = np.argmax(lookahead(i, j, state_val))
