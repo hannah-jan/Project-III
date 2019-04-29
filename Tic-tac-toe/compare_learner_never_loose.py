@@ -3,9 +3,8 @@ from strategies import player_move_random, player_move_never_lose, player_move_l
 from basicfunctions import is_finished, is_winner
 
 """
-Simulating the game of tic-tac-toe for a player who never loses vs a random player and 
+Simulate the game of tic-tac-toe for a player who never loses vs a random player and 
 a reinforcement learner vs a random player and comparing the average wins
-
 """
 
 value_map = {}
@@ -41,19 +40,20 @@ def play_versus_learner(strategy, value_map, verbose = True, explore=0.1):
             return 0
         # reset to iterate again
         state0 = state2
-  
-# iterate to get a value map (get a different value map depending on oponents strategy)
 
+        
+# Learner first plays 10,000 games to create value map
 for i in range(10000):
     play_versus_learner(player_move_random, value_map, verbose = False)
 
 
+# Now simulate 10,000 more games against random player
 learner_wins = []
-
 for i in range(10000):
     learner_win = play_versus_learner(player_move_random, value_map, verbose = False, explore = -1)
     learner_wins.append(learner_win)
 
+# Average scores of learner
 learner_totals = [sum(learner_wins[0:i]) for i in range (1, len(learner_wins)+1)]
 learner_averages = [learner_totals[i]/(i+1) for i in range(len(learner_totals))] 
 learner_averages.pop(0)
@@ -81,16 +81,19 @@ def random_versus_never_lose(verbose = True):
         state0 = state2
   
 
-# iterate to get a value map (get a different value map depending on oponents strategy)
+# Simulate 10,000 games of never-lose against random player
 never_lose_wins = []
-
 for i in range(10000):
     never_lose_win = random_versus_never_lose(False)
     never_lose_wins.append(never_lose_win)
-
+    
+# Average scores of never-lose player
 never_lose_totals = [sum(never_lose_wins[0:i]) for i in range (1, len(never_lose_wins)+1)]
 never_lose_averages = [never_lose_totals[i]/(i+1) for i in range(len(never_lose_totals))]
 never_lose_averages.pop(0)
+
+
+# Plot the average scores of each player
 
 plt.plot(learner_averages, label = 'Average learner score')
 plt.plot(never_lose_averages, label = 'Average never_lose player score')
