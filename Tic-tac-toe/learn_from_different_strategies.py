@@ -44,13 +44,14 @@ def play_versus_learner(strategy, value_map, verbose = True, explore=0.1, update
         # reset to iterate again
         state0 = state2
   
-# iterate to get a value map (get a different value map depending on oponents strategy)
+# Simulate the game 20,000 times with each agent playing against a player of different strategy
 
 for i in range(20000):
     play_versus_learner(player_move_random, value_map_1, verbose = False, explore = 0.1)
     play_versus_learner(player_move_good, value_map_2, verbose = False, explore = 0.1)
     play_versus_learner(player_move_never_lose, value_map_3, verbose = False, explore = 0.1)
 
+# Play the game a further 1,000 against a random player and record wins
 
 learner_wins_1 = []
 learner_wins_2 = []
@@ -66,6 +67,7 @@ for i in range(1000):
     learner_wins_3.append(learner_win_3)
 
 
+# Find averages
 
 learner_totals_1 = [sum(learner_wins_1[0:i]) for i in range (1, len(learner_wins_1)+1)]
 learner_averages_1 = [learner_totals_1[i]/(i+1) for i in range(len(learner_totals_1))] 
@@ -79,6 +81,7 @@ learner_totals_3 = [sum(learner_wins_3[0:i]) for i in range (1, len(learner_wins
 learner_averages_3 = [learner_totals_3[i]/(i+1) for i in range(len(learner_totals_3))] 
 learner_averages_3.pop(0)
 
+# Plot the results
 
 plt.plot(learner_averages_1)
 plt.plot(learner_averages_2)
