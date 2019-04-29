@@ -1,7 +1,8 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
 from basicfunctions import next_states, is_winner
 
+"""
+Create value maps for each of the three strategies: random, good, never-lose
+"""
 
 def update_value_map_good(value_map, player, move):
     otherplayer = 3 - player
