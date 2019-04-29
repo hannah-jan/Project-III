@@ -1,4 +1,3 @@
-
 import matplotlib.pyplot as plt
 from strategies import player_move_random, player_move_learner
 from basicfunctions import is_finished, is_winner
@@ -46,7 +45,8 @@ def play_versus_learner(strategy, value_map, verbose = True, explore=0.1):
         # reset to iterate again
         state0 = state2
   
-# iterate to get a value map (get a different value map depending on oponents strategy)
+
+# Simulate the game 20,000 times, with each agent exploring a different ratio
 
 for i in range(20000):
     play_versus_learner(player_move_random, value_map_1, verbose = False, explore = 0.001)
@@ -57,12 +57,13 @@ for i in range(20000):
 
 
 
+# Simulate the game a further 10,000 times, where agents no longer explore and record wins
+
 learner_wins_1 = []
 learner_wins_2 = []
 learner_wins_3 = []
 learner_wins_4 = []
 learner_wins_5 = []
-
 
 for i in range(10000):
     learner_win_1 = play_versus_learner(player_move_random, value_map_1, verbose = False, explore = -1)
@@ -77,7 +78,7 @@ for i in range(10000):
     learner_wins_5.append(learner_win_5)
 
 
-
+# Find averages 
 learner_totals_1 = [sum(learner_wins_1[0:i]) for i in range (1, len(learner_wins_1)+1)]
 learner_averages_1 = [learner_totals_1[i]/(i+1) for i in range(len(learner_totals_1))] 
 learner_averages_1.pop(0)
@@ -98,9 +99,7 @@ learner_totals_5 = [sum(learner_wins_5[0:i]) for i in range (1, len(learner_wins
 learner_averages_5 = [learner_totals_5[i]/(i+1) for i in range(len(learner_totals_5))] 
 learner_averages_5.pop(0)
 
-
-
-# iterate to get a value map (get a different value map depending on oponents strategy)
+# Plot the results
 
 plt.plot(learner_averages_1, label = 'Explore = 0.001')
 plt.plot(learner_averages_2, label = 'Explore = 0.01')
